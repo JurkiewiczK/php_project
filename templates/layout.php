@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Lazy brain</title>
-    <meta name="description" content="" />
+    <meta name="" content="" />
     <link rel="stylesheet" href="public/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

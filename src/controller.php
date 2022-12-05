@@ -7,7 +7,6 @@ namespace App;
 require_once('src/Exceptions/ConfigurationException.php');
 
 use App\Exception\ConfigurationException;
-use App\Exception\ConfiurationException;
 
 require_once("src/view.php");
 require_once("src/database.php");
@@ -20,7 +19,7 @@ class Controller
     private const DEFAULT_ACTION = "list";
 
     private static array $configuration = [];
-    
+
     private Database $database;
     private array $request;
     private View $view;
@@ -53,22 +52,26 @@ class Controller
         switch ($this->action()) {
             case 'create':
                 $page = 'create';
-                $created = false;
+
 
                 $data = $this->getRequestPost();
                 if (!empty($data)) {
-                    $created = true;
-                    $this->database->createNote($data);
-                    header('Location: /php_project');
- 
-                }
+                    $noteData = [
+                        'title' => $data['title'],
+                        'description' => $data['description']
+                    ];
 
-                $viewParams['created'] = $created;
+                    $this->database->createNote($noteData);
+                    header('Location: /php_project/?before=created');
+                }
                 break;
 
             default:
                 $page = 'list';
-                $viewParams['resultList'] = 'lista ';
+
+                $data = $this->getRequestGet();
+
+                $viewParams['before'] = $data['before'] ?? null;
 
                 break;
         }

@@ -25,7 +25,7 @@ class Database
 
             $this->validate_db($config);
             $this->connection($config);
-            dump($this->conn);
+
         } catch (PDOException $e) {
             throw new StorageException('Connection failed ( database.php)');
         }
