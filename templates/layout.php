@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title>Lazy brain</title>
     <meta name="description" content="" />
-    <link rel="stylesheet" href="../public/style.css" />
+    <link rel="stylesheet" href="public/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gruppo&display=swap" rel="stylesheet">
@@ -23,10 +23,10 @@
             <div class="menu">
                 <ul>
                     <li>
-                        <a href="/">Lista Notatek</a>
+                        <a href="/php_project">Lista Notatek</a>
                     </li>
                     <li>
-                        <a href="?action=create">Nowa Notatka</a>
+                        <a href="/php_project/?action=create">Nowa Notatka</a>
                     </li>
                 </ul>
             </div>

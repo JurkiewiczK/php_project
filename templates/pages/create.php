@@ -5,7 +5,7 @@
         <div>Tytuł:  <?php echo $params['title'] . "</br>"; ?></div>
         <div>Opis:  <?php echo $params['description']; ?></div>
         <?php else: ?>
-        <form class="main-form" action="/?action=create" method="post">
+        <form class="main-form" action="?action=create" method="post">
             <ul>
                 <li>
                     <label>Tytuł <span class="required">*</span></label>

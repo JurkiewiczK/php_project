@@ -58,14 +58,9 @@ class Controller
                 $data = $this->getRequestPost();
                 if (!empty($data)) {
                     $created = true;
-
-                    $this->database->createNote('das');
-                    
-                    $viewParams = [
-                        'title' => $_POST['title'],
-                        'description' => $data['description'],
-                    ];
-                    
+                    $this->database->createNote($data);
+                    header('Location: /php_project');
+ 
                 }
 
                 $viewParams['created'] = $created;
