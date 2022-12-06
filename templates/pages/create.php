@@ -4,15 +4,15 @@
         <form class="main-form" action="?action=create" method="post">
             <ul>
                 <li>
-                    <label>Tytuł <span class="required">*</span></label>
-                    <input type="text" name="title" class="field-long" />
+                    <label >Tytuł</label>
+                    <input type="text" name="title" class="field-long" required />
                 </li>
                 <li>
                     <label>Opis</label>
-                    <textarea name="description" id="field-text"></textarea>
+                    <textarea name="description" id=""></textarea>
                 </li>
                 <li>
-                    <input type="submit" value="submit" />
+                    <input type="submit" value="dadaj notatkę" id="sub-note"/>
                 </li>
             </ul>
 

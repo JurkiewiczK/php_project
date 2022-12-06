@@ -2,21 +2,18 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Lazy brain</title>
+    <title>Memo</title>
     <meta name="" content="" />
     <link rel="stylesheet" href="public/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gruppo&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
     <script type="text/javascript" src=""></script>
 </head>
 
 <body>
     <header>
-        <h1>Lazy brain</h1>
+        <h1>memo</h1>
     </header>
     <section class="container">
         <nav>
