@@ -17,6 +17,8 @@
                 case 'notfound':
                     echo '<b>Nie ma notatki o takim indeksie</b>';
                     break;
+                case 'noid':
+                    echo '<b>Błędny parametr URL</b>';
             }
         }
         ?>
@@ -36,17 +38,19 @@
     <div class="tbl-core">
         <table>
             <tbody>
-                <?php foreach ($params['notes'] ?? [] as $note): ?>
+                <?php foreach ($params['notes'] ?? [] as $note) : ?>
                     <tr>
                         <td><?php echo (int)$note['id'] ?></td>
                         <td><?php echo htmlentities($note['title']) ?></td>
                         <td><?php echo htmlentities($note['created']) ?></td>
                         <td>
-                            <a href="./?action=show&id=<?php echo $note['id'] ?>">SHOW</a>
+                            <button id="details">
+                                <a href="./?action=show&id=<?php echo $note['id'] ?>" class="showLink">SHOW</a>
+                            </button>
                         </td>
-                        
+
                     </tr>
-                <?php endforeach; ?>   
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>

@@ -8,19 +8,17 @@ use App\Exception\AppException;
 use App\Exception\ConfigurationException;
 use App\Exception\StorageException;
 use App\Exception\NotFoundException;
+use App\Request;
 use Throwable;
 
 require_once("src/utils/debug.php");
 require_once("src/controller.php");
 require_once("src/Exceptions/AppException.php");
-
+require_once("src/Request.php");
 
 $config_db = require_once("./config/config.php");
 
-$request = [
-    'get' => $_GET,
-    'post' => $_POST,
-];
+$request = new Request($_GET, $_POST);
 
 try {
 
@@ -36,10 +34,9 @@ try {
     dump($e);
     echo "<h1>Problem z konfiguracjąDB. Kontakt dasd@da.com</h1>";
 } catch (AppException $e) {
-    echo "<h1>Wystąpił bład w aplikacji</h1> " ;
+    echo "<h1>Wystąpił bład w aplikacji</h1> ";
     echo $e->getMessage();
 } catch (Throwable $e) {
-    dump($e);   
+    dump($e);
     echo '<h1>Wystąpił błąd appki </h1>';
 };
-
