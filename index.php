@@ -7,6 +7,7 @@ namespace App;
 use App\Exception\AppException;
 use App\Exception\ConfigurationException;
 use App\Exception\StorageException;
+use App\Exception\NotFoundException;
 use Throwable;
 
 require_once("src/utils/debug.php");
@@ -26,15 +27,19 @@ try {
     Controller::initConfig($config_db);
     (new Controller($request))->run();
 } catch (StorageException $e) {
-    echo "Storage exception";
+    echo "<h1>Wystąpił bład w aplikacji</h1>" . "</br>";
+    echo $e->getMessage();
+} catch (NotFoundException $e) {
+    echo "<h1>Nie znaleziono zawartości.</h1>";
     echo $e->getMessage();
 } catch (ConfigurationException $e) {
     dump($e);
-    echo "Problem z konfiguracjąDB. Kontakt dasd@da.com";
+    echo "<h1>Problem z konfiguracjąDB. Kontakt dasd@da.com</h1>";
 } catch (AppException $e) {
-    echo "Wystąpił bład w aplikacji (AppException index.php)" . '</br>';
+    echo "<h1>Wystąpił bład w aplikacji</h1> " ;
     echo $e->getMessage();
 } catch (Throwable $e) {
     dump($e);   
-    echo '<h1>Wystąpił błąd appki (throwable inedex.php)</h1>';
+    echo '<h1>Wystąpił błąd appki </h1>';
 };
+

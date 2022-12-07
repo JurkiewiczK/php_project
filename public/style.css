@@ -37,6 +37,13 @@ article.main-content {
   color: rgb(229, 229, 229);
   text-align: center;
   border-left: 1px solid gray;
+  overflow: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+article.main-content::-webkit-scrollbar {
+  display: none;
 }
 
 footer {
@@ -60,6 +67,34 @@ h1 {
 article.main-content h3 {
   text-transform: uppercase;
   font-weight: 700;
+}
+
+div.tbl-head {
+  width: 100%;
+  height: 25px;
+  border-bottom: 0.5px solid rgb(175 145 116);
+}
+
+table {
+  width: 100%;
+}
+
+div.tbl-head th,
+div.tbl-core td {
+  color: rgb(175 145 116);
+  width: 25%;
+  text-align: center;
+}
+
+div.tbl-core td {
+  font-size: 17px;
+  padding-top: 5px;
+}
+
+div.tbl-head tr,
+div.tbl-core tr {
+  text-transform: uppercase;
+  font-size: 13px;
 }
 
 footer h3 {
@@ -93,6 +128,7 @@ textarea {
   margin: 0 auto;
   font-size: 16px;
   font-weight: 700;
+  font-family: Gruppo;
   color: rgb(35 42 71);
   border: 1px solid lightgray;
   border-radius: 5px;
@@ -137,4 +173,20 @@ nav ul li:hover {
 
 ul li a:hover {
   color: rgb(175 145 116);
+}
+
+button#back {
+  background-color: rgb(175 145 116);
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 7 25px;
+  border: 2px solid white;
+  border-radius: 2px;
+  color: rgb(35 42 71);
+}
+
+button#back:hover {
+  border: 0.5px solid gray;
+  color: white;
 }

@@ -6,10 +6,12 @@ namespace App;
 
 require_once("src/Exceptions/StorageExceptions.php");
 require_once("src/Exceptions/ConfigurationException.php");
+require_once("src/Exceptions/NotFoundException.php");
 
 
 use App\Exception\StorageException;
 use App\Exception\ConfigurationException;
+use App\Exception\NotFoundException;
 use PDO;
 use PDOException;
 use Throwable;
@@ -25,11 +27,42 @@ class Database
 
             $this->validate_db($config);
             $this->connection($config);
-
         } catch (PDOException $e) {
             throw new StorageException('Connection failed ( database.php)');
         }
     }
+
+
+    public function downloadNotes(): array
+    {
+
+        try {
+            $query = "SELECT id, title, created FROM notes";
+            $result = $this->conn->query($query, PDO::FETCH_ASSOC);
+            return $result->fetchAll();
+        } catch (Throwable $e) {
+            throw new StorageException("Nie udało się pobrać danych.", 400, $e);
+        }
+    }
+
+    public function getSingleNote(int $id): array
+    {
+
+        try {
+            $sql_query = "SELECT * FROM notes WHERE id  = $id";
+            $result = $this->conn->query($sql_query);
+            $note = $result->fetch(PDO::FETCH_ASSOC);
+        } catch (Throwable $e) {
+            throw new StorageException(" Nie udało się pobrać notatki.", 400, $e);
+        }
+
+        if (!$note) {
+            throw new NotFoundException("Nie ma takiej notatki w bazie. Id : $id");
+        }
+
+        return $note;
+    }
+
 
     public function createNote($data): void
     {
@@ -39,7 +72,7 @@ class Database
             $created = $this->conn->quote(date('Y-m-d H:i:s'));
 
             $sql_query = "INSERT INTO notes(title, description, created) VALUES($title, $description, $created)";
-            
+
             $this->conn->exec($sql_query);
         } catch (Throwable $e) {
             throw new StorageException("Nie udalo się stworzyć notatki", 400);

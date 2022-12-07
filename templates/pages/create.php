@@ -4,12 +4,12 @@
         <form class="main-form" action="?action=create" method="post">
             <ul>
                 <li>
-                    <label >Tytuł</label>
-                    <input type="text" name="title" class="field-long" required />
+                    <label></label>
+                    <input type="text" name="title" class="field-long" required placeholder="Title" />
                 </li>
                 <li>
-                    <label>Opis</label>
-                    <textarea name="description" id=""></textarea>
+                    <label></label>
+                    <textarea name="description" id="" required placeholder="Description"></textarea>
                 </li>
                 <li>
                     <input type="submit" value="dadaj notatkę" id="sub-note"/>

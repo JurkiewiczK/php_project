@@ -36,7 +36,7 @@
 </body>
 
 <footer>
-    <h3>STOPKA</h3>
+    <h3>JurkiewiczK 2022 &reg;</h3>
 </footer>
 
 </html>
