@@ -12,7 +12,8 @@ use App\Request;
 use Throwable;
 
 require_once("src/utils/debug.php");
-require_once("src/controller.php");
+require_once("src/AbstractController.php");
+require_once("src/Controller.php");
 require_once("src/Exceptions/AppException.php");
 require_once("src/Request.php");
 
@@ -22,7 +23,7 @@ $request = new Request($_GET, $_POST);
 
 try {
 
-    Controller::initConfig($config_db);
+    AbstractController::initConfig($config_db);
     (new Controller($request))->run();
 } catch (StorageException $e) {
     echo "<h1>Wystąpił bład w aplikacji</h1>" . "</br>";
@@ -40,3 +41,4 @@ try {
     dump($e);
     echo '<h1>Wystąpił błąd appki </h1>';
 };
+
