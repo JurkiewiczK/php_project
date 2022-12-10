@@ -20,7 +20,7 @@ class View
         
         $valuesBox[$key] = $this->escData($value);
       } else if ($value) {
-        $valuesBox[$key] = htmlspecialchars(($value.''), ENT_QUOTES);
+        $valuesBox[$key] = htmlentities(($value.''), ENT_QUOTES);
       } else {
         $valuesBox[$key] = $value;
       }

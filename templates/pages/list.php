@@ -40,9 +40,9 @@
             <tbody>
                 <?php foreach ($params['notes'] ?? [] as $note) : ?>
                     <tr>
-                        <td><?php echo (int)$note['id'] ?></td>
-                        <td><?php echo htmlentities($note['title']) ?></td>
-                        <td><?php echo htmlentities($note['created']) ?></td>
+                        <td><?php echo $note['id'] ?></td>
+                        <td><?php echo $note['title'] ?></td>
+                        <td><?php echo $note['created'] ?></td>
                         <td>
                             <button id="details">
                                 <a href="./?action=show&id=<?php echo $note['id'] ?>" class="showLink">SHOW</a>

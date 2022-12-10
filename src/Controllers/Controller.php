@@ -2,11 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App;
-
-require_once('src/Exceptions/ConfigurationException.php');
-require_once("src/View.php");
-require_once("src/Database.php");
+namespace App\Controllers;
 
 use App\Exception\NotFoundException;
 
