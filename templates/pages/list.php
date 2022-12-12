@@ -6,6 +6,9 @@
                 case 'created':
                     echo '<b>Notatka utworzona</b>';
                     break;
+                case 'edited':
+                    echo '<b>Notatka zaktualizowana</b>';
+                    break;
             }
         }
         ?>
@@ -19,6 +22,7 @@
                     break;
                 case 'noid':
                     echo '<b>Błędny parametr URL</b>';
+                    break;
             }
         }
         ?>

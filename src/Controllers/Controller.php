@@ -8,7 +8,7 @@ use App\Exception\NotFoundException;
 
 class Controller extends AbstractController
 {
-    
+
     public function createExecute(): void
     {
         $page = 'create';
@@ -20,8 +20,7 @@ class Controller extends AbstractController
             ];
 
             $this->database->createNote($noteData);
-            header('Location: /php_project/?before=created');
-            exit();
+            $this->redirect('./?', ['before' => 'created']);
         }
 
         $this->view->render($page, $viewParams ?? []);
@@ -34,15 +33,13 @@ class Controller extends AbstractController
         $noteId = (int)($this->request->getParam('id'));
 
         if (!$noteId) {
-            header('Location: ./?error=noid');
-            exit();
+            $this->redirect('./?', ['error' => 'noid']);
         }
 
         try {
             $singleNote = $this->database->getSingleNote($noteId);
         } catch (NotFoundException $e) {
-            header("Location: ./?error=notfound");
-            exit();
+            $this->redirect('./?', ['error' => 'notfound']);
         }
         $viewParams = [
             'note' => $singleNote,
@@ -53,14 +50,30 @@ class Controller extends AbstractController
 
     public function listExecute(): void
     {
-        $page = 'list';
-        $viewParams = [
+
+        $this->view->render('list', [
             'notes' => $this->database->downloadNotes(),
             'before' => $this->request->getParam('before'),
-            'error' => $this->request->getParam('error')
-        ];
-
-        $this->view->render($page, $viewParams ?? []);
+            'error' => $this->request->getParam('error'),
+        ]);
     }
 
+    public function editExecute()
+    {
+        if ($this->request->isPost()) {
+            $noteId=(int)$this->request->postParam('id');
+            $noteData = [
+                'title' => $this->request->postParam('title'),
+                'description' => $this->request->postParam('description')
+            ];
+
+            $this->database->editNote($noteId, $noteData);
+            $this->redirect('./?', ['before' =>'edited']);
+        }
+
+        $noteId = (int)$this->request->getParam('id');
+       $singleNote = $this->database->getSingleNote($noteId);
+
+        $this->view->render('edit', ['note' => $singleNote]);
+    }
 }

@@ -2,12 +2,10 @@
 
 declare(strict_types=1);
 
-spl_autoload_register(function(string $name)
-{
+spl_autoload_register(function (string $name) {
     $path = str_replace(["\\", "App/"], ["/", ""], $name);
     $path = "src/$path.php";
     require_once($path);
-    
 });
 
 require_once("src/utils/debug.php");
@@ -18,9 +16,10 @@ use App\Controllers\Controller;
 use App\Request;
 use App\Exception\AppException;
 use App\Exception\ConfigurationException;
+use App\Exception\NotFoundException;
 
 
-$request = new Request($_GET, $_POST);
+$request = new Request($_GET, $_POST, $_SERVER);
 
 try {
 
@@ -32,8 +31,10 @@ try {
 } catch (AppException $e) {
     echo "<h1>Wystąpił bład w aplikacji</h1> ";
     echo $e->getMessage();
+} catch (NotFoundException $e) {
+    echo "<h1>Wystąpił bład w aplikacji</h1> ";
+    echo $e->getMessage();
 } catch (\Throwable $e) {
     dump($e);
     echo '<h1>Wystąpił błąd appki </h1>';
 };
-
