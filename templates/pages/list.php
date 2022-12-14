@@ -33,7 +33,8 @@
     <?php
     $sort = $params['sort'];
     $sortby = $sort['sortby'] ?? 'title';
-    $sortorder = $sort['sortorder'] ?? 'desc'
+    $sortorder = $sort['sortorder'] ?? 'desc';
+    $search = $params['search'] ?? null ;
     ?>
 
     <div>
@@ -42,6 +43,10 @@
 
     <div>
         <form class="sort-form" action="./" method="GET">
+            <div>
+                <label><input type="text" name="search"/></label>
+            </div>
+
             <div>Sort by:
                 <label>Title:<input type="radio" name="sortby" value="title" <?php echo $sortby === 'title' ? 'checked' : ''?>/></label>
                 <label>Date:<input type="radio" name="sortby" value="created" <?php echo $sortby === 'created' ? 'checked' : ''?>/></label>

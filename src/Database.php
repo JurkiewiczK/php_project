@@ -29,7 +29,7 @@ class Database
     }
 
 
-    public function downloadNotes(string $sortby, string $sortorder): array
+    public function downloadNotes($search, string $sortby, string $sortorder): array
     {
 
         try {
@@ -50,6 +50,29 @@ class Database
             throw new StorageException("Nie udało się pobrać danych.", 400, $e);
         }
     }
+
+
+    public function search(string $search, string $sortby, string $sortorder): array
+    {
+        try {
+
+            if (!in_array($sortby, ['created', 'title'])) {
+                $sortby = 'title';
+            }
+
+            if (!in_array($sortorder, ['asc', 'desc'])) {
+                $sortorder = 'asc';
+            }
+
+            $search = $this->conn->quote('%'.$search.'%', PDO::PARAM_STR);
+            $query = "SELECT id, title, created FROM notes WHERE title LIKE ($search) ORDER BY $sortby $sortorder";
+            $result = $this->conn->query($query, PDO::FETCH_ASSOC);
+            return $result->fetchAll();
+        } catch (Throwable $e) {
+            throw new StorageException("Nie udało się pobrać danych.", 400, $e);
+        }
+    }
+
 
     public function getSingleNote(int $id): array
     {

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Exception\NotFoundException;
+use PDO;
 
 class Controller extends AbstractController
 {
@@ -43,19 +44,26 @@ class Controller extends AbstractController
         $this->view->render($page, $viewParams ?? []);
     }
 
-    public function listExecute(): void
+    public function listExecute()
     {
+        $search = $this->request->getParam('search');
         $sortby = $this->request->getParam('sortby', 'title');
         $sortorder = $this->request->getParam('sortorder', 'desc');
+        $note = $this->database->downloadNotes($search, $sortby, $sortorder);
 
-
-        $this->view->render('list', 
-        [
-            'sort' => ['sortby' => $sortby,'sortorder' => $sortorder],
-            'notes' => $this->database->downloadNotes($sortby, $sortorder),
-            'before' => $this->request->getParam('before'),
-            'error' => $this->request->getParam('error'),
-        ]);
+        if ($search) {
+            $note = $note = $this->database->search($search, $sortby, $sortorder); 
+        }
+            $this->view->render(
+                'list',
+                [
+                    'search' => $search,
+                    'sort' => ['sortby' => $sortby, 'sortorder' => $sortorder],
+                    'notes' => $note,
+                    'before' => $this->request->getParam('before'),
+                    'error' => $this->request->getParam('error'),
+                ]
+            );
     }
 
     public function editExecute(): void
@@ -87,9 +95,8 @@ class Controller extends AbstractController
         }
 
         $this->view->render('delete', ['note' => $this->getNote()]);
-        
     }
-        
+
 
     final private function getNote(): array
     {
