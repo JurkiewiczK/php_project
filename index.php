@@ -17,6 +17,7 @@ use App\Request;
 use App\Exception\AppException;
 use App\Exception\ConfigurationException;
 use App\Exception\NotFoundException;
+use App\Exception\StorageException;
 
 
 $request = new Request($_GET, $_POST, $_SERVER);
@@ -37,4 +38,7 @@ try {
 } catch (\Throwable $e) {
     dump($e);
     echo '<h1>Wystąpił błąd appki </h1>';
+}catch (StorageException $e) {
+    dump($e);
+    echo '<h1>Wystąpił błąd DB</h1>';
 };

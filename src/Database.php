@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Exception\AppException;
 use App\Exception\StorageException;
 use App\Exception\ConfigurationException;
 use App\Exception\NotFoundException;
@@ -28,11 +29,21 @@ class Database
     }
 
 
-    public function downloadNotes(): array
+    public function downloadNotes(string $sortby, string $sortorder): array
     {
 
         try {
-            $query = "SELECT id, title, created FROM notes";
+
+            if (!in_array($sortby, ['created', 'title'])) {
+                $sortby = 'title';
+            }
+
+            if (!in_array($sortorder, ['asc', 'desc'])) {
+                $sortorder = 'asc';
+            }
+
+
+            $query = "SELECT id, title, created FROM notes ORDER BY $sortby $sortorder";
             $result = $this->conn->query($query, PDO::FETCH_ASSOC);
             return $result->fetchAll();
         } catch (Throwable $e) {
@@ -86,12 +97,21 @@ class Database
             SET title = $title, 
             description = $description 
             WHERE id = $id";
-            
         } catch (Throwable $e) {
             throw new StorageException('Update issue');
         }
 
         $this->conn->exec($query);
+    }
+
+    public function deleteNote($id): void
+    {
+        try {
+            $query = "DELETE FROM notes WHERE id = $id LIMIT 1";
+            $this->conn->exec($query);
+        } catch (Throwable $e) {
+            throw new AppException('Deleting error' . $e->getMessage(), 400, $e);
+        }
     }
 
 
