@@ -18,7 +18,7 @@ header {
 
 nav {
   background-color: #ffffff;
-  width: 15%;
+  width: 10%;
   padding: 15px;
 }
 
@@ -31,7 +31,7 @@ section.container {
 }
 
 article.main-content {
-  width: 85%;
+  width: 90%;
   padding: 15px;
   background-color: rgb(35 42 71);
   color: rgb(229, 229, 229);
@@ -168,7 +168,7 @@ input#sub-note:hover {
 }
 
 nav ul li:hover {
-  transform: translateX(15px);
+  transform: translateX(7px);
   transition: 0.5s ease-in-out;
 }
 
@@ -176,17 +176,17 @@ ul li a:hover {
   color: rgb(175 145 116);
 }
 
-a.showLink, a.showLink:active, a.showLink:visited  {
+a.showLink,
+a.showLink:active,
+a.showLink:visited {
   text-decoration: none;
   font-size: 14px;
   color: rgb(35 42 71);
-  
 }
 
 a.showLink:hover {
   color: white;
 }
-
 
 .default-btn {
   background-color: rgb(175 145 116);
@@ -194,7 +194,7 @@ a.showLink:hover {
   font-size: 14px;
   font-weight: 700;
   padding: 7 25px;
-  border: 2px solid white;
+  border: 1px solid white;
   border-radius: 2px;
   color: rgb(35 42 71);
 }
@@ -210,7 +210,24 @@ a.showLink:hover {
   font-size: 14px;
   font-weight: 700;
   padding: 0 15px;
-  border: .5px solid white;
+  border: 0.5px solid white;
   border-radius: 2px;
   color: rgb(35 42 71);
+}
+
+.sort-box {
+  padding: 10px 0;
+}
+
+input#sort-btn {
+  padding: 2 25px;
+  margin-top: 20px;
+}
+div.msg {
+  padding-bottom: 10px;
+  color: green;
+  font-size: 16px;
+}
+#search-input {
+  width: 45%;
 }

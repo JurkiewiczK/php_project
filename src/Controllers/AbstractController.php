@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Request;
-use App\Database;
+use App\Model\MemoModel;
 use App\View;
 use App\Exception\ConfigurationException;
 
@@ -15,7 +15,7 @@ abstract class AbstractController
 
     private static array $configuration = [];
 
-    protected Database $database;
+    protected MemoModel $database;
     protected Request $request;
     protected View $view;
 
@@ -31,7 +31,7 @@ abstract class AbstractController
             throw new ConfigurationException("Congif ERROR");
         };
 
-        $this->database = new Database(self::$configuration['db']);
+        $this->database = new MemoModel(self::$configuration['db']);
 
         $this->request = $request;
         $this->view = new View();

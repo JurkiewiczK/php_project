@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Model;
 
+use App\Model\AbstractModel;
 use App\Exception\AppException;
 use App\Exception\StorageException;
 use App\Exception\ConfigurationException;
@@ -12,24 +13,10 @@ use PDO;
 use PDOException;
 use Throwable;
 
-class Database
+class MemoModel extends AbstractModel implements ModelInterface
 {
-    private PDO $conn;
 
-    public function __construct(array $config)
-    {
-
-        try {
-
-            $this->validate_db($config);
-            $this->connection($config);
-        } catch (PDOException $e) {
-            throw new StorageException('Connection failed ( database.php)');
-        }
-    }
-
-
-    public function downloadNotes($search, string $sortby, string $sortorder): array
+    public function list($search, string $sortby, string $sortorder): array
     {
 
         try {
@@ -64,7 +51,7 @@ class Database
                 $sortorder = 'asc';
             }
 
-            $search = $this->conn->quote('%'.$search.'%', PDO::PARAM_STR);
+            $search = $this->conn->quote('%' . $search . '%', PDO::PARAM_STR);
             $query = "SELECT id, title, created FROM notes WHERE title LIKE ($search) ORDER BY $sortby $sortorder";
             $result = $this->conn->query($query, PDO::FETCH_ASSOC);
             return $result->fetchAll();
@@ -74,7 +61,7 @@ class Database
     }
 
 
-    public function getSingleNote(int $id): array
+    public function get(int $id): array
     {
 
         try {
@@ -93,7 +80,7 @@ class Database
     }
 
 
-    public function createNote($data): void
+    public function create($data): void
     {
         try {
             $title = $this->conn->quote($data['title']);
@@ -109,7 +96,7 @@ class Database
     }
 
 
-    public function editNote(int $id, array $data): void
+    public function edit(int $id, array $data): void
     {
         try {
             $title = $this->conn->quote($data['title']);
@@ -127,32 +114,13 @@ class Database
         $this->conn->exec($query);
     }
 
-    public function deleteNote($id): void
+    public function delete($id): void
     {
         try {
             $query = "DELETE FROM notes WHERE id = $id LIMIT 1";
             $this->conn->exec($query);
         } catch (Throwable $e) {
             throw new AppException('Deleting error' . $e->getMessage(), 400, $e);
-        }
-    }
-
-
-    private function connection(array $config)
-    {
-        $dsn = "mysql:dbname={$config['database']};host={$config['host']}";
-        $this->conn = new PDO($dsn, $config['user'], $config['password'], [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-    }
-
-    private function validate_db(array $data): void
-    {
-        if (
-            empty($data['database'])
-            || empty($data['host'])
-            || empty($data['user'])
-            || empty($data['password'])
-        ) {
-            throw new ConfigurationException('DB DATA FAIL');
         }
     }
 }

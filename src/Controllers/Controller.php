@@ -20,7 +20,7 @@ class Controller extends AbstractController
                 'description' => $this->request->postParam('description')
             ];
 
-            $this->database->createNote($noteData);
+            $this->database->create($noteData);
             $this->redirect('./?', ['before' => 'created']);
         }
 
@@ -49,7 +49,7 @@ class Controller extends AbstractController
         $search = $this->request->getParam('search');
         $sortby = $this->request->getParam('sortby', 'title');
         $sortorder = $this->request->getParam('sortorder', 'desc');
-        $note = $this->database->downloadNotes($search, $sortby, $sortorder);
+        $note = $this->database->list($search, $sortby, $sortorder);
 
         if ($search) {
             $note = $note = $this->database->search($search, $sortby, $sortorder); 
@@ -75,12 +75,12 @@ class Controller extends AbstractController
                 'description' => $this->request->postParam('description')
             ];
 
-            $this->database->editNote($noteId, $noteData);
+            $this->database->edit($noteId, $noteData);
             $this->redirect('./?', ['before' => 'edited']);
         }
 
         $noteId = (int)$this->request->getParam('id');
-        $singleNote = $this->database->getSingleNote($noteId);
+        $singleNote = $this->database->get($noteId);
 
         $this->view->render('edit', ['note' => $singleNote]);
     }
@@ -89,7 +89,7 @@ class Controller extends AbstractController
     {
         if ($this->request->isPost()) {
             $id = $this->request->postParam('id');
-            $this->database->deleteNote($id);
+            $this->database->delete($id);
             $this->redirect('./?', ['before' => 'deleted']);
             exit();
         }
@@ -106,7 +106,7 @@ class Controller extends AbstractController
         }
 
         try {
-            $singleNote = $this->database->getSingleNote($noteId);
+            $singleNote = $this->database->get($noteId);
         } catch (NotFoundException $e) {
             $this->redirect('./?', ['error' => 'notfound']);
         }

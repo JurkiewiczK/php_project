@@ -1,5 +1,6 @@
 <div>
     <div class='msg'>
+        <p></p>
         <?php
         if (!empty($params['before'])) {
             switch ($params['before']) {
@@ -21,20 +22,20 @@
         if (!empty($params['error'])) {
             switch ($params['error']) {
                 case 'notfound':
-                    echo '<b>Nie ma notatki o takim indeksie</b>';
+                    echo '<b>Undefined memo</b>';
                     break;
                 case 'noid':
-                    echo '<b>Błędny parametr URL</b>';
+                    echo '<b>URL error</b>';
                     break;
             }
         }
         ?>
-    </div >
+    </div>
     <?php
     $sort = $params['sort'];
     $sortby = $sort['sortby'] ?? 'title';
     $sortorder = $sort['sortorder'] ?? 'desc';
-    $search = $params['search'] ?? null ;
+    $search = $params['search'] ?? null;
     ?>
 
     <div>
@@ -44,18 +45,18 @@
     <div>
         <form class="sort-form" action="./" method="GET">
             <div>
-                <label><input type="text" name="search"/></label>
+                <label><input type="text" name="search" id="search-input" placeholder="search"/></label>
             </div>
 
-            <div>Sort by:
-                <label>Title:<input type="radio" name="sortby" value="title" <?php echo $sortby === 'title' ? 'checked' : ''?>/></label>
-                <label>Date:<input type="radio" name="sortby" value="created" <?php echo $sortby === 'created' ? 'checked' : ''?>/></label>
+            <div class="sort-box">Sort by:
+                <label>Title:<input type="radio" name="sortby" value="title" <?php echo $sortby === 'title' ? 'checked' : '' ?> /></label>
+                <label>Date:<input type="radio" name="sortby" value="created" <?php echo $sortby === 'created' ? 'checked' : '' ?> /></label>
             </div>
-            <div>Sort direction
-                <label>Ascending:<input type="radio" name="sortorder" value="asc" <?php echo $sortorder === 'asc' ? 'checked' : ''?>/></label>
-                <label>Descending:<input type="radio" name="sortorder" value="desc" <?php echo $sortorder === 'desc' ? 'checked' : ''?>/></label>
+            <div class="sort-box">Sort direction
+                <label>Ascending:<input type="radio" name="sortorder" value="asc" <?php echo $sortorder === 'asc' ? 'checked' : '' ?> /></label>
+                <label>Descending:<input type="radio" name="sortorder" value="desc" <?php echo $sortorder === 'desc' ? 'checked' : '' ?> /></label>
             </div>
-            <input class="default-btn" type="submit" value="sort">
+            <input class="default-btn" id="sort-btn" type="submit" value="search">
         </form>
     </div>
 
@@ -64,9 +65,9 @@
             <thead>
                 <tr>
                     <th>id</th>
-                    <th>tytuł</th>
-                    <th>data</th>
-                    <th>Opcje</th>
+                    <th>title</th>
+                    <th>date</th>
+                    <th>option</th>
                 </tr>
             </thead>
         </table>

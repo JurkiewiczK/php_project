@@ -20,10 +20,10 @@
             <div class="menu">
                 <ul>
                     <li>
-                        <a href="/php_project">Lista Notatek</a>
+                        <a href="/php_project">memo</br>list</a>
                     </li>
                     <li>
-                        <a href="/php_project/?action=create">Nowa Notatka</a>
+                        <a href="/php_project/?action=create">new</br>memo</a>
                     </li>
                 </ul>
             </div>
